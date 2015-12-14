@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">	
+	<title>jquery ui test</title>
+	<link rel="stylesheet" type="text/css" href="css/jquery.ui.core.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.ui.resizable.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<header>
+	<h1>Image upload and edit</h1>		
+</header>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-sm-12 col-xs-12">
+				<div class="preview_image">
+					<!-- <label class="choose_file" for="upload">upload file</label> -->
+					<div id="pw_image" class="pw_image">
+						<!-- <img src="img/Desert.jpg" class="image"> -->
+						<!-- draggable image -->
+
+						<div id="draggable" class="ui-widget-content">
+							<div id="resizable"></div>
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			<div class="col-lg-12 col-sm-12 col-xs-12">
+			<form role="form" id="form">
+				<div class="btn-content">
+					<input type="file" id="upload" accept="image/*" capture><br>
+					<input type="button" value="click here for upload image" id="upload_btn">
+						
+				</div>
+			</form>
+				<div class="btn-content">
+					<button id="output">download</button>
+					<!-- <button id="download">download</button> -->
+
+				</div>
+				<!-- <canvas id="test"></canvas> -->
+
+<!-- <div class="bshare-custom icon-medium-plus">
+<div class="bsPromo bsPromo2"></div><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a></div>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script> -->
+
+<!-- AddToAny BEGIN -->
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_google_plus"></a>
+<a class="a2a_button_qzone"></a>
+</div>
+<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://t.cn/RyY8ELI&amp;title=圖片編輯&amp;summary=圖片編輯" target="_blank">qq分享</a>
+<!-- AddToAny END -->
+
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/html2canvas.js"></script>
+<!-- <script type="text/javascript" src="js/html2canvas.svg.js"></script> -->
+<script type="text/javascript" src="js/FileSaver2.js"></script>
+<script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="js/jquery.ui.draggable.js"></script>
+<script type="text/javascript" src="js/jquery.ui.resizable.js"></script>
+<script type="text/javascript" src="js/jquery.ui.rotatable.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+$("#upload_btn").click(function(){
+	$("#upload").trigger("click");
+});
+
+$("#upload").change(function(){
+	var file_org = $(this);
+	var file = file_org[0].files[0];
+ 	var reader = new FileReader();
+	var image = $("#pw_image");
+	reader.onload = function(e){
+		$('#pw_image').css('background', 'transparent url('+e.target.result +')  center  no-repeat');
+		$('#pw_image').css('background-size','cover');
+	}
+	if(file){
+		reader.readAsDataURL(file);
+	}else{
+		image.src = " ";
+	}
+
+	
+});
+// dragging image
+// $("#draggable").css({'top':'-304px'});
+
+$( "#draggable" ).draggable();
+
+$("#resizable").resizable({
+
+	aspectRatio: true,
+	handles:     'ne, nw, se, sw'
+});
+
+$("#resizable").rotatable();
+
+$('.preview_image').mouseenter(function(){
+	$('.ui-resizable-handle').show();
+	$('.ui-rotatable-handle').show();
+});
+$('.preview_image').mouseleave(function(){
+	$('.ui-resizable-handle').hide();
+	$('.ui-rotatable-handle').hide();
+});
+
+ 
+// var canvas = document.getElementById('test');
+// var ctx = canvas.getContext("2d");
+// var img = new Image();
+// img.onload = function(){
+    
+// 	ctx.drawImage(img,0,0);
+// }
+
+// img.crossOrigin="anonymous";
+// img.src = "https://dl.dropboxusercontent.com/u/86351622/123.jpg";
+
+$('#output').click(function(){
+		
+		
+	html2canvas(document.getElementById('pw_image'), {
+	  allowTaint:false,
+	  onrendered: function(canvas) {
+	  		 var img = canvas.toDataURL();
+            canvas.toBlob(function(blob) {
+            saveAs(blob, "test.png");
+        	}, "image/png");
+	  	 	
+	    	console.debug(canvas.toDataURL());
+	  }
+
+	  
+	});
+	
+});
+
+
+
+	$('#download').click(function(){
+		
+
+		html2canvas(document.getElementById('canvas'), {
+     		onrendered: function(canvas) {
+            var img = canvas.toDataURL();
+            canvas.toBlob(function(blob) {
+            saveAs(blob, "test.png");
+        }, "image/png");
+            }
+    	});
+		// var canvas = document.getElementById('canvas');
+		//  var img = canvas.toDataURL();
+		//  console.debug(img);
+
+	});
+
+
+});
+
+</script>
+</body>
+</html>
