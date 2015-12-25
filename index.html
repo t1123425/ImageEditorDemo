@@ -3,7 +3,8 @@
 <head>
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta charset="utf-8">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">	
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+	<meta property="og:title" content="ImageEditor"/>	
 	<title>光劍生產器(Demo)</title>
 	<link rel="stylesheet" type="text/css" href="css/jquery.ui.core.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.ui.resizable.css" />
@@ -23,13 +24,23 @@
 					<div id="pw_image" class="pw_image">
 						<!-- draggable image -->
 						<div  class="draggable ui-widget-content ">
-							<div class="resizable"></div>
+							<div class="resizable LightsaberBlue"></div>
+						</div>
+						<div  class="draggable ui-widget-content ">
+							<div class="santaHat"></div>
 						</div>
 					</div>
 				</div>
 				
 			</div>
 			<div class="col-md-12 col-sm-12 col-xs-12">
+		<!-- 	<div class="itemContent">
+				<ul class="itemList">
+					<li ><img src="img/Lightsaber_red.png"></li>
+					<li ><img src="img/Lightsaber_blue.png"></li>
+					<li ><img src="img/santa-hat.png"></li>
+				</ul>
+			</div><br> -->	
 			<form role="form" id="form">
 				<div class="btn-content">
 					<div class="upload-btn">
@@ -125,9 +136,8 @@ $("#upload").change(function(){
 
 	
 });
-// dragging image
-// $("#draggable").css({'top':'-304px'});
 
+// dragging image
 $( ".draggable" ).draggable();
 
 $(".resizable").resizable({
@@ -135,49 +145,42 @@ $(".resizable").resizable({
 	aspectRatio: true,
 	handles:     'ne, nw, se, sw'
 });
+$(".santaHat").resizable({
 
+	aspectRatio: true,
+	handles:     'ne, nw, se, sw'
+});
 $(".resizable").rotatable();
 
-$().mouseenter(function(){
+
+
+$('.preview_image').mouseenter(function(){
 	$('.ui-resizable-handle').show();
 	$('.ui-rotatable-handle').show();
 });
-// $('.preview_image').mouseleave(function(){
-// 	$('.ui-resizable-handle').hide();
-// 	$('.ui-rotatable-handle').hide();
-// });
-
  
-// var canvas = document.getElementById('test');
-// var ctx = canvas.getContext("2d");
-// var img = new Image();
-// img.onload = function(){
-    
-// 	ctx.drawImage(img,0,0);
-// }
 
-// img.crossOrigin="anonymous";
-// img.src = "https://dl.dropboxusercontent.com/u/86351622/123.jpg";
-
-	$('#output').click(function(){
-			
+$('#output').click(function(){			
 		$('.ui-resizable-handle').hide();
 		$('.ui-rotatable-handle').hide();
 		$('.loading').fadeIn();
 		setTimeout(function(){
 			$('.loading').hide();
 			html2canvas(document.getElementById('pw_image'), {
-			  allowTaint:true,
+			  allowTaint:false,
 			  onrendered: function(canvas) {
-			  		 var img = canvas.toDataURL();
-		            canvas.toBlob(function(blob) {
-		            saveAs(blob, "test.png");
-		        	}, "image/png");
-			 
+		  		var img = canvas.toDataURL();
+	            canvas.toBlob(function(blob) {
+	            saveAs(blob, "test.png");
+	        	}, "image/png");			 
 			  }
 			});
 		},1000);
 	});
+
+
+
+
 
 });
 </script>
