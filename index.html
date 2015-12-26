@@ -5,10 +5,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 	<meta name="author" content="tom yuan"/>
-	<meta property="og:title" content="ImageEditor"/>
+	<meta property="og:title" content="ImageEditor Of Lightsaber"/>
 	<meta property="og:image" content="img/Lightsaber_blue.png" />
-	<meta property="og:description" content="Hello, This is a sample of image editor by jquery ui and html5 canvas for generator image file." >
-	<title>光劍生產器(Demo)</title>
+	<meta property="og:description" content="Hello, This is a sample of image editor i made by jquery ui and html5 canvas for generator image file." >
+	<title>ImageEditor Of Lightsaber(Demo)</title>
 	<link rel="stylesheet" type="text/css" href="css/jquery.ui.core.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.ui.resizable.css" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -27,10 +27,10 @@
 					<div id="pw_image" class="pw_image">
 						<!-- draggable image -->
 						<div  class="draggable ui-widget-content ">
-							<div class="resizable LightsaberBlue"></div>
+							<div class="santaHat"></div>
 						</div>
 						<div  class="draggable ui-widget-content ">
-							<div class="santaHat"></div>
+							<div class="resizable LightsaberBlue"></div>
 						</div>
 					</div>
 				</div>
@@ -47,10 +47,13 @@
 			<form role="form" id="form">
 				<div class="btn-content">
 					<div class="upload-btn">
-						<input type="file" id="upload" accept="image/*" capture>
+						<input type="file" id="upload" accept="image/*">
 						Click here for upload image.
 					</div>
-					
+					<div class="upload-btn">
+						<input type="file" id="uploadCapture" accept="image/*" capture>
+						Click here for upload image from Camara(only for moblie).
+					</div>
 					<!-- <input type="button" value="click here for upload image" id="upload_btn"> -->
 						
 				</div>
@@ -101,7 +104,7 @@
 <script type="text/javascript">
 
 $(function(){
-var _URL = window.URL || window.webkitURL;
+// var _URL = window.URL || window.webkitURL;
 
 $("#upload_btn").click(function(){
 	$("#upload").trigger("click");
@@ -131,14 +134,44 @@ $("#upload").change(function(){
 		image.src = " ";
 	}
 	reader.onload = function(e){
-		
-		
 		$('#pw_image').css('background', 'transparent url('+e.target.result +')  center  no-repeat');
-		 $('#pw_image').css('background-size','contain');
+		$('#pw_image').css('background-size','contain');
 	}
 
 	
 });
+
+$("#uploadCapture").change(function(){
+	var file_org = $(this);
+	var file = file_org[0].files[0];
+ 	var reader = new FileReader();
+	var image = $("#pw_image");
+	// var img;
+	// var width;
+	// var height;
+
+	if(file){
+	  //   img = new Image();
+	  //    img.onload = function() {
+   //          width = this.width;
+   //          height = this.height;
+   //          console.debug(width);
+   //          $('.preview_image').css("width",""+width+"px");
+			// $('.preview_image').css("height",""+height+"px");
+   //      };
+        // img.src = _URL.createObjectURL(file);
+		reader.readAsDataURL(file);
+	}else{
+		image.src = " ";
+	}
+	reader.onload = function(e){
+		$('#pw_image').css('background', 'transparent url('+e.target.result +')  center  no-repeat');
+		$('#pw_image').css('background-size','contain');
+	}
+
+	
+});
+
 
 // dragging image
 $( ".draggable" ).draggable();
