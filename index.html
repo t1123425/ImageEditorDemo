@@ -9,6 +9,16 @@
 	<meta property="og:image" content="img/Lightsaber_blue.png" />
 	<meta property="og:description" content="Hello, This is a sample of image editor i made by jquery ui and html5 canvas for generator image file." >
 	<title>ImageEditor Of Lightsaber(Demo)</title>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71736556-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 	<link rel="stylesheet" type="text/css" href="css/jquery.ui.core.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.ui.resizable.css" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -44,6 +54,14 @@
 					<li ><img src="img/santa-hat.png"></li>
 				</ul>
 			</div><br> -->	
+			<div class="infoContent">
+				<p>Instruction:</p>
+				<ol>
+					<li>upload image</li>
+					<li>dragging  or resizing Lightsaber and santa hat</li>
+					<li>click download button </li>
+				</ol>
+			</div>
 			<form role="form" id="form">
 				<div class="btn-content">
 					<div class="upload-btn">
@@ -86,7 +104,7 @@
 
 </section>
 <footer>
-	<p>Create By <a href="http://t1123425.github.io/My-portfolio/index.html">Tom Yuan</a> Click Link can See More!!</p>
+	<p>Create By <a href="http://t1123425.github.io/My-portfolio/index.html" target="_blank">Tom Yuan</a> Click Link can See More!!</p>
 </footer>
 
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -207,7 +225,7 @@ $('#output').click(function(){
 			  onrendered: function(canvas) {
 		  		var img = canvas.toDataURL();
 	            canvas.toBlob(function(blob) {
-	            saveAs(blob, "test.png");
+	            saveAs(blob, "OutputImage.png");
 	        	}, "image/png");			 
 			  }
 			});

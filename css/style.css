@@ -4,9 +4,7 @@ body{
 header{
 	text-align:center; 
 }
-ul,li{
-  list-style: none;
-}
+
 .preview_image{
 	/*width:960px;*/
 	height:450px; 
@@ -111,7 +109,14 @@ ul,li{
   position: relative;
   bottom:0px;
 }
-
+/*info*/
+.infoContent {
+    width: 330px;
+    margin: 8px auto;
+}
+.infoContent p{
+  text-align: center;
+}
 /*loading*/
 .loading{
 	position:fixed;
